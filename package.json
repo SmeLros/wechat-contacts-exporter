@@ -1,14 +1,29 @@
 {
-  "name": "wechat_extract",
+  "name": "wechat-contacts-exporter",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "导出微信通讯录联系人（昵称、微信号、备注、签名）到 CSV",
+  "main": "export_contacts.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node export_contacts.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.15.0"
+  "keywords": [
+    "wechat",
+    "contacts",
+    "export",
+    "csv",
+    "wechat-cli"
+  ],
+  "author": "SmeLros",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SmeLros/wechat-contacts-exporter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SmeLros/wechat-contacts-exporter/issues"
+  },
+  "homepage": "https://github.com/SmeLros/wechat-contacts-exporter#readme",
+  "engines": {
+    "node": ">=14"
+  }
 }

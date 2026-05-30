@@ -2,10 +2,10 @@ const { exec } = require('child_process');
 const { promisify } = require('util');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
+const readline = require('readline');
 
 const execAsync = promisify(exec);
-const dynamicFileName = `${new Date().toISOString().replace(/[:.]/g, '-')}.wechat_contacts_node.csv`;
-const OUTPUT = path.resolve('e:/apps/temp/output', dynamicFileName);
 const CONCURRENCY = 10;
 
 function run(cmd) {
@@ -14,6 +14,21 @@ function run(cmd) {
     env: { ...process.env, PYTHONIOENCODING: 'utf-8' },
     maxBuffer: 10 * 1024 * 1024,
   }).then(r => r.stdout);
+}
+
+function askOutputDir() {
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  const defaultDir = path.join(os.homedir(), 'Desktop');
+  return new Promise(resolve => {
+    rl.question(`Output directory (default: ${defaultDir}): `, answer => {
+      rl.close();
+      const dir = answer.trim() || defaultDir;
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      resolve(dir);
+    });
+  });
 }
 
 async function getContactList() {
@@ -71,25 +86,23 @@ async function fetchAllDetails(contacts) {
 }
 
 async function main() {
+  const outputDir = await askOutputDir();
+
   const contacts = await getContactList();
   const results = await fetchAllDetails(contacts);
 
   console.log('\n');
 
-  // Write CSV (BOM for Excel)
+  const fileName = `${new Date().toISOString().replace(/[:.]/g, '-')}.wechat_contacts.csv`;
+  const outputPath = path.join(outputDir, fileName);
+
   const esc = v => `"${String(v).replace(/"/g, '""')}"`;
   const header = 'wxid,nickname,wechat_id,remark,description';
   const lines = results.map(r => [r.wxid, r.nickname, r.wechat_id, r.remark, r.description].map(esc).join(','));
-  fs.writeFileSync(OUTPUT, '\ufeff' + header + '\n' + lines.join('\n'), 'utf-8');
+  fs.writeFileSync(outputPath, '\ufeff' + header + '\n' + lines.join('\n'), 'utf-8');
 
   console.log(`Done! Total: ${contacts.length} contacts`);
-  console.log(`Output: ${OUTPUT}`);
-
-  // preview (ASCII-safe only, CSV file has correct UTF-8 encoding)
-  console.log('\nPreview (first 10, wxid only):');
-  results.slice(0, 10).forEach(r => console.log(`  ${r.wxid}`));
-  if (results.length > 10) console.log(`  ... and ${results.length - 10} more`);
-  console.log('\nOpen the CSV file in Excel/VS Code to see all Chinese/emoji correctly.');
+  console.log(`Output: ${outputPath}`);
 }
 
 main().catch(console.error);
