@@ -20,7 +20,7 @@ function askOutputDir() {
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
   const defaultDir = path.join(os.homedir(), 'Desktop');
   return new Promise(resolve => {
-    rl.question(`Output directory (default: ${defaultDir}): `, answer => {
+    rl.question(`Output directory / 输出目录 (default / 默认: ${defaultDir}): `, answer => {
       rl.close();
       const dir = answer.trim() || defaultDir;
       if (!fs.existsSync(dir)) {
@@ -33,6 +33,7 @@ function askOutputDir() {
 
 async function getContactList() {
   console.log('Step 1: Querying contacts from a-z and 0-9 ...');
+  console.log('步骤 1：正在搜索所有联系人 ...');
   const all = [];
   const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
   for (const ch of chars) {
@@ -43,7 +44,7 @@ async function getContactList() {
   }
   const unique = [...new Set(all)];
   const realContacts = unique.filter(u => u.startsWith('wxid_'));
-  console.log(`  Total unique: ${unique.length}, Real contacts: ${realContacts.length}`);
+  console.log(`  Total unique / 共去重后: ${unique.length}, Real contacts / 真实联系人: ${realContacts.length}`);
   return realContacts;
 }
 
@@ -64,7 +65,8 @@ async function detail(username) {
 }
 
 async function fetchAllDetails(contacts) {
-  console.log(`Step 2: Getting contact details (concurrency=${CONCURRENCY}) ...`);
+  console.log('Step 2: Getting contact details ...');
+  console.log(`步骤 2：正在获取联系人详情 (并发=${CONCURRENCY}) ...`);
   const total = contacts.length;
   const results = new Array(total);
   let next = 0;
@@ -101,8 +103,8 @@ async function main() {
   const lines = results.map(r => [r.wxid, r.nickname, r.wechat_id, r.remark, r.description].map(esc).join(','));
   fs.writeFileSync(outputPath, '\ufeff' + header + '\n' + lines.join('\n'), 'utf-8');
 
-  console.log(`Done! Total: ${contacts.length} contacts`);
-  console.log(`Output: ${outputPath}`);
+  console.log(`Done / 完成! Total / 共计: ${contacts.length} contacts / 位联系人`);
+  console.log(`Output / 输出: ${outputPath}`);
 }
 
 main().catch(console.error);

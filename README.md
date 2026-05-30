@@ -1,8 +1,6 @@
 # WeChat Contacts Exporter
 
-[![npm version](https://img.shields.io/npm/v/@canghe_ai/wechat-cli.svg)](https://www.npmjs.com/package/@canghe_ai/wechat-cli)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Node](https://img.shields.io/badge/node-%3E%3D14-brightgreen)](https://nodejs.org)
+[![npm version](https://img.shields.io/npm/v/@canghe_ai/wechat-cli.svg)](https://www.npmjs.com/package/@canghe_ai/wechat-cli) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Node](https://img.shields.io/badge/node-%3E%3D14-brightgreen)](https://nodejs.org)
 
 > 导出微信通讯录联系人（wxid、昵称、微信号、备注、签名）到 CSV。
 
@@ -70,3 +68,12 @@ CSV 文件为 UTF-8 BOM 编码，Excel 可直接打开 📊。
 ## License
 
 [MIT](LICENSE)
+
+## ⚠️ 免责声明 / Disclaimer
+
+本工具仅用于个人学习和研究目的 **（For learning and research purposes only）**。
+
+- 本工具为**只读**操作，不会修改或删除任何微信数据
+- 所有数据仅在本地处理，**不会上传至任何服务器**
+- 使用者应遵守当地法律法规，**自行承担使用风险**
+- 作者不对因使用本工具而产生的任何问题或损失承担责任
