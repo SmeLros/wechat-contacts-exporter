@@ -27,10 +27,7 @@ async function getContactList() {
     while ((m = re.exec(out))) all.push(m[1]);
   }
   const unique = [...new Set(all)];
-  const skip = new Set(['qmessage', 'qqmail', 'medianote', 'floatbottle', 'filehelper']);
-  const realContacts = unique.filter(u =>
-    !u.startsWith('gh_') && !u.includes('@chatroom') && !skip.has(u)
-  );
+  const realContacts = unique.filter(u => u.startsWith('wxid_'));
   console.log(`  Total unique: ${unique.length}, Real contacts: ${realContacts.length}`);
   return realContacts;
 }
@@ -88,15 +85,11 @@ async function main() {
   console.log(`Done! Total: ${contacts.length} contacts`);
   console.log(`Output: ${OUTPUT}`);
 
-  // preview
-  console.log('\nPreview (first 20):');
-  results.slice(0, 20).forEach(r => {
-    const nick = r.nickname.padEnd(20).slice(0, 20);
-    const wid = (r.wechat_id || '-').padEnd(18).slice(0, 18);
-    const rem = (r.remark || '-').padEnd(12).slice(0, 12);
-    console.log(`  ${r.wxid.padEnd(28).slice(0, 28)} ${nick} ${wid} ${rem}`);
-  });
-  if (results.length > 20) console.log(`  ... and ${results.length - 20} more`);
+  // preview (ASCII-safe only, CSV file has correct UTF-8 encoding)
+  console.log('\nPreview (first 10, wxid only):');
+  results.slice(0, 10).forEach(r => console.log(`  ${r.wxid}`));
+  if (results.length > 10) console.log(`  ... and ${results.length - 10} more`);
+  console.log('\nOpen the CSV file in Excel/VS Code to see all Chinese/emoji correctly.');
 }
 
 main().catch(console.error);
