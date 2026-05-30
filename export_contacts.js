@@ -4,7 +4,8 @@ const fs = require('fs');
 const path = require('path');
 
 const execAsync = promisify(exec);
-const OUTPUT = path.resolve('e:/apps/temp/wechat_contacts_node.csv');
+const dynamicFileName = `${new Date().toISOString().replace(/[:.]/g, '-')}.wechat_contacts_node.csv`;
+const OUTPUT = path.resolve('e:/apps/temp/output', dynamicFileName);
 const CONCURRENCY = 10;
 
 function run(cmd) {
