@@ -8,13 +8,13 @@
 
 ## 依赖
 
-此工具基于 [wechat-cli](https://github.com/SmeLros/wechat-cli)，需要先安装并初始化。
+此工具基于 [wechat-cli](https://github.com/huohuoer/wechat-cli)，需要先安装并初始化。
 
 ## 🚀 快速开始
 
 ### 1. 安装 wechat-cli
 
-安装及初始化指引见 [wechat-cli 文档](https://github.com/SmeLros/wechat-cli)，或直接：
+安装及初始化指引见 [wechat-cli 文档](https://github.com/huohuoer/wechat-cli)，或直接：
 
 ```bash
 npm install -g @canghe_ai/wechat-cli
