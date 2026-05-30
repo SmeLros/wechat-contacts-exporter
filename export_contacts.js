@@ -88,6 +88,17 @@ async function fetchAllDetails(contacts) {
 }
 
 async function main() {
+  console.log('='.repeat(50));
+  console.log('WeChat Contacts Exporter');
+  console.log('='.repeat(50));
+  console.log('');
+  console.log('[Security Advice / 安全建议]');
+  console.log('wechat-cli runs fully locally, all data stays on your machine.');
+  console.log('wechat-cli 为纯本地操作，所有数据不会离开本机。');
+  console.log('For maximum safety, consider disconnecting the network before proceeding.');
+  console.log('为了极致的数据安全并避免微信风控误检，建议先断开网络再执行。');
+  console.log('');
+
   const outputDir = await askOutputDir();
 
   const contacts = await getContactList();

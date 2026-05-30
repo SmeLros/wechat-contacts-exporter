@@ -69,11 +69,21 @@ CSV 文件为 UTF-8 BOM 编码，Excel 可直接打开 📊。
 
 [MIT](LICENSE)
 
+## ⚠️ 安全建议 / Security Advice
+
+wechat-cli 为纯本地操作，所有数据不会离开本机。但为了**极致的数据安全**并**避免微信风控误检**，建议在执行前断开网络连接（拔网线 / 飞行模式）。
+
+```bash
+# 断网后执行
+npm start
+```
+
 ## ⚠️ 免责声明 / Disclaimer
 
-本工具仅用于个人学习和研究目的 **（For learning and research purposes only）**。
+本工具仅用于个人学习和研究目的 **（For learning and research purposes only）**，**严禁用于任何商业用途（Commercial use is strictly prohibited）**。
 
 - 本工具为**只读**操作，不会修改或删除任何微信数据
 - 所有数据仅在本地处理，**不会上传至任何服务器**
+- 本工具不涉及对微信生态的任何干扰、破解或自动化操作
 - 使用者应遵守当地法律法规，**自行承担使用风险**
-- 作者不对因使用本工具而产生的任何问题或损失承担责任
+- **作者不对因使用本工具而产生的任何直接或间接损失承担责任**
